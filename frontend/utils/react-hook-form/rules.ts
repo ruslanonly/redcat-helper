@@ -30,6 +30,7 @@ const validateDate: Rules = {
 }
 
 export default {
+  required,
   password: passwordRule,
   email: emailRule,
   validateDate
