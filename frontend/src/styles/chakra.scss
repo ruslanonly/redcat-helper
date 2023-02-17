@@ -1,0 +1,32 @@
+.chakra-radio {
+  & {
+    font-size: 1.5rem;
+  }
+  .chakra-radio__control {
+    & {
+      width: 1.4rem;
+      height: 1.4rem;
+      background: none !important;
+      border-color: var(--color-grey-200) !important;
+      transition: all var(--animdur) ease;
+    }
+
+    &[data-checked] {
+      border-color: var(--color-violet-main) !important;
+      &::before {
+        width: 55%;
+        height: 55%;
+        background: var(--color-violet-main) !important;
+      }
+    }
+
+    &[data-disabled] {
+      background: var(--color-grey-100) !important;;
+    }
+    
+  }
+
+  .chakra-radio__label {
+    font-size: 1rem !important;
+  }
+}

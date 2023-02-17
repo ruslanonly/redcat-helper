@@ -1,0 +1,39 @@
+@import "chakra.scss";
+
+:root {
+  --animdur: .15s;
+  --color-violet-main: #9362DF;
+  --color-violet-bright: #BF89FE;
+  --color-blue-main: #0089FF;
+  --color-blue-light: #00C4FF;
+  --color-russian-red: #DF0000;
+  --color-russian-red-bright: #FF2838;
+  --color-yellow: #FFE800;
+  --color-yellow-dark: #FFC800;
+  --color-lime: #D5F000;
+  --color-lime-dark: #C6C600;
+  --color-soft-orange: #FF8E37;
+  --color-grey-300: #969696;
+  --color-grey-200: #C2C2C2;
+  --color-grey-100: #F0F0F0;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  overflow-x: hidden;
+}
+
+html {
+  font-size: 16px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
