@@ -16,9 +16,18 @@ def save_data():
 
 @app.route('/api/get_data', methods=['GET'])
 def get_data():
-    user_id = request.args.get('user_id')
+    url=str(request.url)
+    user_id = url[url.rfind('?')+1:]
+
+    
     fields = request.args.getlist('fields')
-    data = form_data.get_data(user_id, fields)
+    try:
+        user_id=int(user_id)
+    except:
+        return jsonify({'success': False})
+    
+    data = form_data.get_data(user_id, None)
+    #print(data)
     if data is None:
         return jsonify({'success': False})
     else:

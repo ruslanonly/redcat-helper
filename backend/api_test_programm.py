@@ -1,7 +1,11 @@
 import requests
 import json
 
-url = 'http://localhost:5000/api/save_data'
+#url = 'http://localhost:5000/api/save_data'
+
+
+
+
 
 # данные пользователя в формате JSON
 user_data = {
@@ -22,15 +26,23 @@ user_data = {
 user_id = 123
 
 # отправляем POST-запрос на API
-response = requests.post(url, json={'user_id': user_id, 'user_data': user_data})
+
+url = 'http://localhost:5000/api/get_data?123'
+
+#response = requests.post(url, json={'user_id': user_id, 'user_data': user_data})
+
+response = requests.get(url, json={})
+
+
 
 # выводим ответ
 if response.status_code == 200:
     response_json = json.loads(response.content)
-    if response_json['success']:
-        print('Данные успешно сохранены')
-    else:
-        invalid_fields = response_json['invalid_fields']
-        print('Не удалось сохранить данные. Некорректные поля:', invalid_fields)
-else:
-    print('Не удалось сохранить данные. Код ответа:', response.status_code)
+    print(response_json)
+
+
+
+
+
+
+
