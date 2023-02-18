@@ -48,6 +48,7 @@ class FormData:
         return None
 
     def get_data(self, user_id, fields=None):
+        print(user_id, fields)
         filename = f"{self.data_path}{user_id}.json"
         if not os.path.isfile(filename):
             return None
