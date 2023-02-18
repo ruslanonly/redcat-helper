@@ -10,7 +10,7 @@ type OrderSegmentProps = {
 
 export default function OrderSegment(props: React.PropsWithChildren<OrderSegmentProps>) {
   return (
-    <TileBlock>
+    <TileBlock style={{height: "min-content"}}>
       <div className={styles.block}>
         <h1>{props.title}</h1>
         <h2>{props.subtitle}</h2>

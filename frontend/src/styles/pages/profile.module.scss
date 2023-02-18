@@ -5,7 +5,7 @@
     grid-template-columns: min-content 1fr;
     grid-template-rows: min-content 1fr;
     gap: 1rem;
-    padding: 1rem;
+    padding: 1rem 1rem 3rem 1rem;
     max-width: 64rem;
   }
 }
@@ -60,8 +60,12 @@
         gap: .5rem;
         justify-items: center;
       }
-      &:nth-child(2) {
+      &:hover {
         cursor: pointer;
+        transition: background .1s ease;
+        background: var(--color-grey-100);
+      }
+      &:nth-child(2) {
         border-left: solid .1rem var(--color-grey-200);
       }
       .icon {

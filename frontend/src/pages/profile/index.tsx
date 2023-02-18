@@ -17,13 +17,29 @@ import Button from 'src/components/UI/Button/Button'
 import Helper, { mockProfile } from 'src/features/Navigation/Navigation'
 import FormSegment from 'src/features/Profile/FormSegment'
 import { useRouter } from 'next/router'
+import { useSetDataMutation } from 'src/app/redux/services/dataApi'
+import { useDispatch } from 'react-redux'
+import { setData } from 'src/app/redux/slices/dataSlice'
+import { useAppDispatch, useAppSelector } from 'src/app/redux/store'
+import { AnimatePresence, motion } from 'framer-motion'
+import { fading } from 'utils/animation'
 
 export default function UIPage() {
   const router = useRouter()
   const [activePage, setactivePage] = useState("Основные данные")
-  const {control, watch} = useForm({
-    mode: "all"
+  const {control, setValue} = useForm({
+    mode: "all",
   })
+
+  const data = useAppSelector(state => state.data)
+
+  React.useEffect(() => {
+    Object.entries(data).forEach((v) => {
+      setValue(v[0], v[1])
+    })
+  }, [data])
+
+  const dispatch = useDispatch()
 
   return (
     <>
@@ -46,7 +62,6 @@ export default function UIPage() {
               <Flex className={styles.idData} gap=".5rem" alignItems="center">
                 <span>ID #343435</span>
                 <span>nezbkir@gmail.com</span>
-                <span>О себе</span>
               </Flex>
               <Flex className={styles.idData} gap=".3rem" alignItems="center">
                 <Button onChange={() => console.log('clicked')}>
@@ -73,80 +88,24 @@ export default function UIPage() {
           </div>
         </TileBlock>
         <div className={styles.form}>
-          <FormSegment title='Основные данные'>
-            <Input
-            rules={{
-              ...rules.required,
-            }}
-            name='second_name'
-            control={control}
-            label='Фамилия'
-            type='text'/>
+        <AnimatePresence mode='wait'>
+          {activePage == "Основные данные" && (
+            <MainDataPage control={control}/>
+          )}
 
-            <Input
-            rules={{
-              ...rules.required,
-              ...rules.validateDate
-            }}
-            name='date'
-            control={control}
-            label='Дата рождения'
-            type='date'/>
+          {activePage == "Личные документы" && (
+            <PrivateDataPage control={control}/>
+          )}
 
-            <Input
-            rules={{
-              ...rules.required,
-            }}
-            name='first_name'
-            control={control}
-            label='Имя'
-            type='text'/>
+          {activePage == "Образование" && (
+            <EducationPage control={control}/>
+          )}  
 
-            <Input
-            name='phone'
-            control={control}
-            label='Номер телефона'
-            type='phone'/>
+          {activePage == "Соцсети" && (
+            <SocialNetPage control={control}/>
+          )} 
 
-            <Input
-            name='middle_name'
-            control={control}
-            description="При наличии"
-            label='Отчество'
-            type='text'/>
-            <Flex flexDir="column" gap="1rem">
-              <span style={{fontSize: ".9rem"}}>Пол</span>
-              <RadioGroup onChange={(value) => console.log(value)}>
-                <Flex gap="1rem" direction='row'>
-                  <Radio value='1' size='md'>
-                    Женский
-                  </Radio>
-                  <Radio value='2' size='md'>
-                    Мужской
-                  </Radio>
-                </Flex>
-              </RadioGroup>
-            </Flex>
-
-          </FormSegment>
-
-          <FormSegment title='Адрес'>
-            <Input
-            name='address'
-            control={control}
-            description="Начинайте вводить"
-            label='Адрес'
-            type='address'/>
-          </FormSegment>
-
-          <FormSegment title='Дополнительно'>
-            <Input
-            name='snils'
-            control={control}
-            description="Введите номер СНИЛС"
-            label='СНИЛС'
-            type='snils'/>
-          </FormSegment>
+        </AnimatePresence>
         </div>
         <TileBlock style={{gridColumn: "1", gridRow: "2", height: "min-content"}}>
           <Helper onClick={(v) => setactivePage(v)} items={mockProfile.items} title={mockProfile.title} active={activePage}/>
@@ -161,5 +120,226 @@ UIPage.getLayout = function getLayout(page: ReactElement) {
     <Layout>
       {page}
     </Layout>
+  )
+}
+
+const MainDataPage = (props: {control: any}) => {
+  const dispatch = useAppDispatch()
+  return (
+    <>
+      <FormSegment title='Основные данные'>
+        <Input
+        rules={{
+          ...rules.required,
+        }}
+        name='second_name'
+        control={props.control}
+        label='Фамилия'
+        type='text'/>
+
+        <Input
+        rules={{
+          ...rules.required,
+          ...rules.validateDate
+        }}
+        name='date'
+        control={props.control}
+        label='Дата рождения'
+        type='date'/>
+
+        <Input
+        rules={{
+          ...rules.required,
+        }}
+        name='first_name'
+        control={props.control}
+        label='Имя'
+        type='text'/>
+
+        <Input
+        name='phone'
+        control={props.control}
+        label='Номер телефона'
+        type='phone'/>
+
+        <Input
+        name='middle_name'
+        control={props.control}
+        description="При наличии"
+        label='Отчество'
+        type='text'/>
+        <Flex flexDir="column" gap="1rem">
+          <span style={{fontSize: ".9rem"}}>Пол</span>
+          <RadioGroup onChange={(v) => dispatch(setData({['gender']: v}))}>
+            <Flex gap="1rem" direction='row'>
+              <Radio value='М' size='md'>
+                Женский
+              </Radio>
+              <Radio value='Ж' size='md'>
+                Мужской
+              </Radio>
+            </Flex>
+          </RadioGroup>
+        </Flex>
+
+      </FormSegment>
+
+      <FormSegment title='Адрес'>
+        <Input
+        name='address'
+        control={props.control}
+        description="Начинайте вводить"
+        label='Адрес'
+        type='address'/>
+      </FormSegment>
+
+      <FormSegment title='Дополнительно'>
+        <Input
+        name='clothing_size'
+        control={props.control}
+        label='Размер одежды'
+        type='text'/>
+        <Input
+        name='nationality'
+        control={props.control}
+        label='Национальность'
+        type='text'/>
+        <Input
+        name='shoe_size'
+        control={props.control}
+        label='Размер обуви'
+        description='Размер в формате EU'
+        type='text'/>
+        <Input
+        name='shoe_size'
+        control={props.control}
+        label='Доверенное лицо'
+        description='Введите ФИО доверенного лица'
+        type='text'/>
+      </FormSegment>
+    </>
+  )
+}
+
+const PrivateDataPage = (props: {control: any}) => {
+  const dispatch = useAppDispatch()
+  return (
+    <>
+      <FormSegment title='Паспорт'>
+        <Input
+        rules={{
+          ...rules.required
+        }}
+        name='passport_number'
+        control={props.control}
+        description="Без пробела"
+        label='Серия и номер'
+        type='number'/>
+        <Input
+         rules={{
+          ...rules.required
+        }}
+        name='passport_giveout_date'
+        control={props.control}
+        label='Дата выдачи'
+        type='date'/>
+        <Input
+        rules={{
+          ...rules.required
+        }}
+        name='passport_giveout'
+        control={props.control}
+        label='Выдан'
+        type='text'/>
+        <Input
+        rules={{
+          ...rules.required
+        }}
+        name='passport_giveout'
+        control={props.control}
+        description="6 цифр без пробела"
+        label='Код подразделения'
+        type='text'/>
+      </FormSegment>
+
+      <FormSegment title='Документы'>
+        <Input
+        name='snils'
+        control={props.control}
+        description="Введите номер ИНН"
+        label='ИНН'
+        type='snils'/>
+        <Input
+        name='snils'
+        rules={{
+          ...rules.required
+        }}
+        control={props.control}
+        description="Введите номер СНИЛС"
+        label='СНИЛС'
+        type='snils'/>
+      </FormSegment>
+    </>
+  )
+}
+
+const EducationPage = (props: {control: any}) => {
+  const dispatch = useAppDispatch()
+  return (
+    <>
+      <FormSegment title='Образование'>
+        <Input
+        rules={{
+          ...rules.required
+        }}
+        name='university_name'
+        control={props.control}
+        label='Название университета'
+        type='text'/>
+        <Input
+        rules={{
+          ...rules.required
+        }}
+        name='university_start_date'
+        control={props.control}
+        label='Год поступления'
+        type='number'/>
+        <Input
+        rules={{
+          ...rules.required
+        }}
+        name='university_end_date'
+        control={props.control}
+        label='Год окончания обучения'
+        type='number'/>
+      </FormSegment>
+    </>
+  )
+}
+
+const SocialNetPage = (props: {control: any}) => {
+  const dispatch = useAppDispatch()
+  return (
+    <>
+      <FormSegment title='Социальные сети'>
+        <Input
+        name='vk_link'
+        control={props.control}
+        label='VK'
+        description='Ссылка'
+        type='text'/>
+        <Input
+        name='telegram'
+        control={props.control}
+        label='Telegram'
+        description='Никнейм'
+        type='text'/>
+        <Input
+        name='email'
+        control={props.control}
+        label='Почта'
+        type='text'/>
+      </FormSegment>
+    </>
   )
 }

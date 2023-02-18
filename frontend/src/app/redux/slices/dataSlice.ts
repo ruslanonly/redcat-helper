@@ -2,16 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { api } from "../services/dataApi";
 
 export type UserData = {
-  second_name?: string
-  first_name?: string
-  patronymic?: string
-  birthdate?: string
-  gender?: string
-  address?: string
-  passport_series?: string
-  passport_number?: string
-  passport_issue_date?: string
-  snils?: string
+  [key: string]: string;
 }
 
 type State = {
@@ -21,7 +12,7 @@ type State = {
 const initialState: State = {
   data: {}
 }
-let authSlice = createSlice({
+let dataSlice = createSlice({
   name: "auth",
   initialState: initialState,
   reducers: {
@@ -45,6 +36,6 @@ let authSlice = createSlice({
 
 export const {
   setData
-} = authSlice.actions
+} = dataSlice.actions
 
-export default authSlice
+export default dataSlice

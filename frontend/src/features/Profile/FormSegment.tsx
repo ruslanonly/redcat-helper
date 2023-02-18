@@ -9,7 +9,7 @@ type FormSegmentProps = {
 
 export default function FormSegment(props: React.PropsWithChildren<FormSegmentProps>) {
   return (
-    <TileBlock>
+    <TileBlock style={{height: "min-content"}}>
       <div className={styles.block}>
         <h1>{props.title}</h1>
         <div className={styles.inputs}>{props.children}</div>

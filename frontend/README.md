@@ -1,38 +1,89 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h4>Реализованная функциональность</h4>
+<ul>
+    <li>Функционал 1;</li>
+    <li>Функционал 2;</li>
+    <li>Функционал 3;</li>
+</ul> 
+<h4>Особенность проекта в следующем:</h4>
+<ul>
+ <li>Киллерфича-1;</li>
+ <li>Киллерфича-2;</li>
+ <li>Киллерфича-3;</li>  
+ </ul>
+<h4>Основной стек технологий:</h4>
+<ul>
+    <li>LAMP/LEMP/FAMP/FEMP.</li>
+	<li>HTML, CSS, JavaScript, TypeScript.</li>
+	<li>PHP 7, MySQL.</li>
+	<li>Symfony, Laravel, Zend Framework, Yii, Kohana.</li>
+	<li>LESS, SASS, PostCSS.</li>
+	<li>Gulp, Webpack, Babel.</li>
+	<li>БЭМ.</li>
+	<li>React (Next.js), Vue (Nuxt.js), Angular.</li>
+	<li>Git, Mercurial.</li>
+	<li>Jenkins, Gitlab.</li>
+  
+ </ul>
+<h4>Демо</h4>
+<p>Демо сервиса доступно по адресу: http://demo.test </p>
+<p>Реквизиты тестового пользователя: email: <b>testuser@test.ru</b>, пароль: <b>testuser</b></p>
 
-## Getting Started
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+СРЕДА ЗАПУСКА
+------------
+1) развертывание сервиса производится на debian-like linux (debian 9+);
+2) требуется установленный web-сервер с поддержкой PHP(версия 7.4+) интерпретации (apache, nginx);
+3) требуется установленная СУБД MariaDB (версия 10+);
+4) требуется установленный пакет name1 для работы с...;
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+УСТАНОВКА
+------------
+### Установка пакета name
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Выполните 
+~~~
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install name1
+sudo apt-get install mariadb-client mariadb-server
+git clone https://github.com/Sinclear/default_readme
+cd default_readme
+...
+~~~
+### База данных
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Необходимо создать пустую базу данных, а подключение к базе прописать в конфигурационный файл сервиса по адресу: папка_сервиса/...
+~~~
+sudo systemctl restart mariadb
+sudo mysql_secure_installation
+mysql -u root -p
+mypassword
+CREATE DATABASE mynewdb;
+quit
+~~~
+### Выполнение миграций
 
-## Learn More
+Для заполнения базы данных системной информацией выполните в корневой папке сервиса: 
+~~~
+mysql -u root -p -f mynewdb < папка_сервиса/...
+mypassword
+~~~
+и согласитесь с запросом
 
-To learn more about Next.js, take a look at the following resources:
+### Установка зависимостей проекта
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Установка зависимостей осуществляется с помощью [Composer](http://getcomposer.org/). Если у вас его нет вы можете установить его по инструкции
+на [getcomposer.org](http://getcomposer.org/doc/00-intro.md#installation-nix).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+После этого выполнить команду в директории проекта:
 
-## Deploy on Vercel
+~~~
+composer install
+~~~
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+РАЗРАБОТЧИКИ
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<h4>Иванов Иван fullstack https://t.me/test@name1 </h4>

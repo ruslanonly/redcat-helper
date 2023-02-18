@@ -105,6 +105,20 @@ export const mockNewOrder: Mock = {
   ]
 }
 
+export const mockNewOrderDocuments: Mock = {
+  title: "Документы",
+  items: [
+    {
+      title: "Договор о предоставлении гранта",
+      percent: 30,
+    },
+    {
+      title: 'Заявка на получение гранта' ,
+      percent: 0,
+    }
+  ]
+}
+
 export default function Helper(props: NavigationProps) {
   return (
     <div className={styles.block}>

@@ -2,6 +2,8 @@ import React, { ReactElement, useState } from 'react'
 import Head from 'next/head'
 import { useForm } from "react-hook-form"
 
+import { FcDocument } from "react-icons/fc"
+
 import {default as VerifyLogo} from "../../../media/logos/Verify.svg"
 import {default as GraphLogo} from "../../../media/logos/Graph.svg"
 import {default as PaperUploadLogo} from "../../../media/logos/PaperUpload.svg"
@@ -14,17 +16,18 @@ import rules from 'src/react-hook-form/rules'
 
 import TileBlock from 'src/components/TileBlock/TileBlock'
 import Button from 'src/components/UI/Button/Button'
-import Helper, { mockNewOrder } from 'src/features/Navigation/Navigation'
+import Helper, { mockNewOrder, mockNewOrderDocuments } from 'src/features/Navigation/Navigation'
 import FormSegment from 'src/features/Profile/FormSegment'
 import OrderSegment from 'src/features/Profile/OrderSegment'
 import HelperMessage from 'src/components/HelperMessage/HelperMessage'
+import { UserData } from 'src/app/redux/slices/dataSlice'
 
 export default function OrderPage() {
   const [activePage, setactivePage] = useState("Основные данные")
-  const {control, watch} = useForm({
+  const {control, watch} = useForm<UserData>({
     mode: "all"
   })
-  console.log('active page', activePage)
+
   return (
     <>
       <Head>
@@ -45,8 +48,14 @@ export default function OrderPage() {
               <Checkbox>Транспортные расходы</Checkbox>
               <Checkbox>Аренда оборудования</Checkbox>
               <Checkbox>Аренда помещений</Checkbox>
-              <Checkbox>Проживание и питание</Checkbox>
-              <Checkbox>Проживание и питание</Checkbox>
+              <Checkbox>Канцелярия</Checkbox>
+              <Checkbox>Расходы на программное обеспечение</Checkbox>
+              <Checkbox>Сайт / приложение</Checkbox>
+              <Checkbox>Закупка оборудования</Checkbox>
+              <Checkbox>Расходные материалы</Checkbox>
+              <Checkbox>Расходы на связь</Checkbox>
+              <Checkbox>Подарки, сувенирная продукция</Checkbox>
+              <Checkbox>Информационные услуги.</Checkbox>
             </OrderSegment>
           )}
           {activePage == "Общее" && (
@@ -65,7 +74,7 @@ export default function OrderPage() {
                 ...rules.required,
                 ...rules.validateDate
               }}
-              name='date'
+              name='birthday'
               control={control}
               label='Дата рождения'
               type='date'/>
@@ -108,9 +117,22 @@ export default function OrderPage() {
           )}
 
         </div>
-        <TileBlock style={{gridColumn: "1", gridRow: "2", height: "min-content"}}>
-          <Helper onClick={(v) => {setactivePage(v); console.log(v)}} items={mockNewOrder.items} title={mockNewOrder.title} active={activePage}/>
-        </TileBlock>
+        <Flex 
+        flexDir="column"
+        style={{gridColumn: "1", gridRow: "2", height: "min-content", gap: "1rem"}}>
+          <TileBlock style={{gridColumn: "1", gridRow: "2", height: "min-content"}}>
+            <Helper onClick={(v) => {setactivePage(v); console.log(v)}} items={mockNewOrder.items} title={mockNewOrder.title} active={activePage}/>
+          </TileBlock>
+          <TileBlock style={{gridColumn: "1", gridRow: "2", height: "min-content"}}>
+            <Helper onClick={(v) => {setactivePage(v); console.log(v)}} items={mockNewOrderDocuments.items} title={mockNewOrderDocuments.title} active={activePage}/>
+          </TileBlock>
+          <TileBlock style={{gridColumn: "1", gridRow: "2", height: "min-content"}}>
+            <Flex gap="1rem" padding="1rem">
+              <FcDocument fontSize="3rem"/>
+              <span style={{fontSize: ".9rem"}}>Методические рекомендации по заполнению проектной формы</span>
+            </Flex>
+          </TileBlock>
+        </Flex>
       </div>
     </>
   )

@@ -8,6 +8,9 @@ import { dateFormatter, dateParser, phoneFormatter, phoneParser, snilsFormatter,
 import { Rules } from './types'
 import rules from 'src/react-hook-form/rules'
 import AddressInput from './components/AddressInput'
+import { useSetDataMutation } from 'src/app/redux/services/dataApi'
+import { useDispatch } from 'react-redux'
+import { setData } from 'src/app/redux/slices/dataSlice'
 
 export type InputType = "text" | "number" | "phone" | "date" | "address" | "snils"
 
@@ -31,9 +34,16 @@ export default function Input(props: InputProps) {
     rules: props.rules
   })
 
+  const dispath = useDispatch()
   const onChange: (React.ChangeEventHandler<HTMLInputElement> & ((value?: string | undefined) => void)) | undefined = (value) => {
     field.onChange(value?.toString() as string)
   }
+
+  React.useEffect(() => {
+    dispath(setData({
+      [field.name]: field.value
+    }))
+  }, [field.value])
 
   const hasError = !!fieldState.error
 
