@@ -2,10 +2,12 @@ import React, { ReactElement, useState } from 'react'
 import Head from 'next/head'
 import { useForm } from "react-hook-form"
 
+import {default as VerifyLogo} from "../media/logos/Verify.svg"
+
 import styles from "../styles/pages/profile.module.scss"
 import Layout from '../components/layouts/ServiceLayout/ServiceLayout'
 import Input from 'src/components/UI/Input/Input'
-import { Flex, Radio, RadioGroup, Stack } from '@chakra-ui/react'
+import { Box, Flex, Radio, RadioGroup, Stack } from '@chakra-ui/react'
 import rules from 'src/react-hook-form/rules'
 
 import TileBlock from 'src/features/TileBlock/TileBlock'
@@ -24,7 +26,26 @@ export default function UIPage() {
       </Head>
       <div className={styles.wrapper}>
         <TileBlock>
-          <h1></h1>
+          <div className={styles.userInfoBlock}>
+            <div className={styles.img}>
+              <img src="/Avatar.png" alt="" />
+            </div>
+            <div className={styles.info}>
+              <Flex className={styles.name} gap=".3rem" alignItems="center">
+                <h1>Незборецкий Кирилл</h1>
+                <VerifyLogo/>
+              </Flex>
+              <Flex className={styles.idData} gap=".3rem" alignItems="center">
+                <span>ID #343435</span>
+                <span>nezbkir@gmail.com</span>
+                <span>О себе</span>
+              </Flex>
+              
+            </div>
+            <TileBlock>
+              <h1></h1>
+            </TileBlock>
+          </div>
         </TileBlock>
         <Input
         name='name'

@@ -5,7 +5,44 @@
     flex-direction: column;
     gap: 1rem;
     padding: 1rem 3rem;
-    max-width: 400px;
+  }
+}
+
+.userInfoBlock {
+  & {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .img {
+    img {
+      width: 9rem;
+      height: 9rem;
+    }
+  }
+  .info {
+    & {
+      display: grid;
+      gap: 1rem;
+    }
+    .name {
+      h1 {
+        font-size: 1.5rem;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+      svg {
+        margin-left: .5rem;
+        font-size: 1.5rem;
+      }
+    }
+    .idData {
+      span {
+        font-size: .9rem;
+        color: var(--color-grey-300);
+      }
+    }
   }
 }
 
