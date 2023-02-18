@@ -1,12 +1,13 @@
 .chakra-radio {
   & {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
   }
   .chakra-radio__control {
     & {
-      width: 1.4rem;
-      height: 1.4rem;
+      width: 1.2rem;
+      height: 1.2rem;
       background: none !important;
+      border-width: .1rem !important;
       border-color: var(--color-grey-200) !important;
       transition: all var(--animdur) ease;
     }
@@ -27,6 +28,6 @@
   }
 
   .chakra-radio__label {
-    font-size: 1rem !important;
+    font-size: .9rem !important;
   }
 }

@@ -1,24 +1,27 @@
 .wrapper {
   & {
     width: 100%;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: min-content 1fr;
+    grid-template-rows: min-content 1fr;
     gap: 1rem;
-    padding: 1rem 3rem;
+    padding: 1rem;
+    max-width: 64rem;
   }
 }
 
 .userInfoBlock {
   & {
+    padding: 2rem;
     display: flex;
-    gap: 1rem;
-    justify-content: space-between;
+    gap: 2rem;
     align-items: center;
   }
   .img {
     img {
       width: 9rem;
-      height: 9rem;
+      min-width: 50px;
+      min-height: 50px;
     }
   }
   .info {
@@ -40,9 +43,42 @@
     .idData {
       span {
         font-size: .9rem;
-        color: var(--color-grey-300);
+        color: var(--color-grey-200);
       }
     }
+  }
+  .choosing {
+    & {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .chItem {
+      & {
+        padding: 2rem 2rem 2rem 2rem;
+        display: grid;
+        gap: .5rem;
+        justify-items: center;
+      }
+      &:nth-child(2) {
+        cursor: pointer;
+        border-left: solid .1rem var(--color-grey-200);
+      }
+      .icon {
+        svg {
+          font-size: 2rem;
+        } 
+      }
+    }
+  }
+}
+
+.form {
+  & {
+    grid-column: 2;
+    grid-row: 2;
+    display: grid;
+    gap: 1rem;
   }
 }
 
@@ -50,4 +86,10 @@
   width: 3rem;
   height: 3rem;
   background: red;
+}
+
+@media all and (max-width: 900px) {
+  .userInfoBlock {
+    
+  }
 }

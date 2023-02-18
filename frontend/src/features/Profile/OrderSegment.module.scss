@@ -1,0 +1,22 @@
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  padding: 1rem 2rem 2rem 2rem;
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+  h2 {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  .inputs {
+    & {
+      display: grid;
+      grid-auto-flow: row;
+      gap: 1rem;
+      row-gap: .7rem;
+    }
+  }
+}

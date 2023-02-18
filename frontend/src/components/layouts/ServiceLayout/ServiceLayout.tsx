@@ -1,4 +1,3 @@
-import { useEffect } from "react"
 import Header from "./components/Header"
 import Sidebar from "./components/Sidebar"
 
@@ -9,8 +8,10 @@ export default function Layout({ children } : any) {
     <>
       <div className={styles.wrapper}>
         <Sidebar/>
-        <Header/>
-        <main>{children}</main>
+        <div className={styles.main}>
+          <Header/>
+          <main>{children}</main>
+        </div>
       </div>
     </>
   )
