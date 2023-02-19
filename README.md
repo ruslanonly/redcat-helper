@@ -1,17 +1,17 @@
+
 <h4>Реализованная функциональность</h4>
 <ul>
-    <li>Функционал 1;</li>
-    <li>Функционал 2;</li>
-    <li>Функционал 3;</li>
+	<li>Система уведомлений</li>
+	<li>Валидация различных форматов данных</li>
+   
 </ul> 
 <h4>Особенность проекта в следующем:</h4>
 <ul>
- <li>Киллерфича-1;</li>
- <li>Киллерфича-2;</li>
- <li>Киллерфича-3;</li>  
+ <li>Автоматизация процесса подачи заявок на гранты.</li>
+ <li>Интерактивный помощник</li>
+ <li>Поддержка пользователей на всех этапах подачи заявки на грант.</li>  
  </ul>
 <h4>Основной стек технологий:</h4>
-Frontend
 <ul>
 	<li>HTML, CSS, SASS/SCSS.</li>
 	<li>JavaScript, TypeScript, ReactJS, NextJS.</li>
@@ -33,33 +33,27 @@ Frontend
 3) необходим предустановленный python и pip пакетный менеджер
 
 
-УСТАНОВКА Backend
+УСТАНОВКА
 ------------
-
-### Запуск базы данных
-
-Необходимо скомпилировать и запустить 
+В 1 консоли:
 ~~~
-
+cd backend
+pip install -r ./requirements
+python.exe .\save_userdate.py
+python.exe .\run_http_server.py
 ~~~
-### Выполнение миграций
-
-Для заполнения базы данных системной информацией выполните в корневой папке сервиса: 
+В 2 консоли:
 ~~~
-mysql -u root -p -f mynewdb < папка_сервиса/...
-mypassword
+cd frontend
+npm install
+npm run dev // development move
 ~~~
-и согласитесь с запросом
-
-### Установка зависимостей проекта
-
-Установка зависимостей осуществляется с помощью [Composer](http://getcomposer.org/). Если у вас его нет вы можете установить его по инструкции
-на [getcomposer.org](http://getcomposer.org/doc/00-intro.md#installation-nix).
-
-После этого выполнить команду в директории проекта:
-
+либо
 ~~~
-composer install
+cd frontend
+npm install
+npm run build // development move
+npm run start
 ~~~
 
 РАЗРАБОТЧИКИ
