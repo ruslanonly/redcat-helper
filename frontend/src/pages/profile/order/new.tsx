@@ -322,6 +322,7 @@ const DocumentGarantPage = (props: {control: any}) => {
         <h3 style={{fontSize: ".9rem"}}>Подписанный Договор о предоставлении гранта*</h3>
         <FileInput/>
       </OrderSegment>
+      <Flex justifyContent="right"><Button>Отправить на проверку</Button></Flex>
     </>
   )
 }

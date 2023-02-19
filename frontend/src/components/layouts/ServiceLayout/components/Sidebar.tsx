@@ -13,10 +13,22 @@ import Link from 'next/link'
 import HelperLogo from 'src/components/UI/HelperLogo/HelperLogo'
 import { Flex, Popover, PopoverTrigger } from '@chakra-ui/react'
 import HelperPopover from 'src/features/HelperPopover/HelperPopover'
+import { useRouter } from 'next/router'
+import { useAppDispatch } from 'src/app/redux/store'
+import { setData } from 'src/app/redux/slices/helperSlice'
 
 export const NavItemLink = (props: {title: string, icon: React.ReactNode, link?: string}) => {
+  const router = useRouter()
+  const dispatch = useAppDispatch()
+  const onClick = () => {
+    if (router.pathname == "/profile/order/new" && props.link == "/profile") {
+      setTimeout(() => {
+        dispatch(setData({text: "Вы не закончили заполнять форму. Возможно, вам было что-то непонятно. Тут можно ознакомиться подробнее с тонкостями получения грантов. Подробнее об этом можно почитать в Базе знаний"}))
+      }, 3000)
+    }
+  }
   return (
-    <Link href={props.link || ""}>
+    <Link onClick={onClick} href={props.link || ""}>
     <div className={styles.navItem}>
       <div className={styles.logo}>
         {props.icon}

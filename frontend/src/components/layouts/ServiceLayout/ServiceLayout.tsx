@@ -1,3 +1,4 @@
+import { useGetDataQuery } from "src/app/redux/services/dataApi"
 import Header from "./components/Header"
 import Sidebar from "./components/Sidebar"
 

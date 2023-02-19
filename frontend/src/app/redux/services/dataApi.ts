@@ -1,28 +1,24 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
-import { UserData } from "../slices/dataSlice"
-
-type LoginRequest = {
-  username: string,
-  password: string
-}
 
 export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:5000/"
   }),
   endpoints: (builder) => ({
-    setData: builder.mutation<{}, UserData>({
+    setData: builder.mutation<{}, {[key: string]: string}>({
       query: (data) =>({
-        url: "/api/save_data?123123",
+        url: "/api/save_data",
         method: "POST",
-        body: data
+        body: {
+          user_id: 1,
+          user_data: data
+        }
       })
     }),
     getData: builder.query({
-      query: (data) =>({
+      query: () =>({
         url: "/api/get_data?1",
-        method: "POST",
-        body: data
+        method: "GET",
       })
     })
   })  

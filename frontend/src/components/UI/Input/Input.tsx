@@ -39,11 +39,15 @@ export default function Input(props: InputProps) {
     field.onChange(value?.toString() as string)
   }
 
-  React.useEffect(() => {
+  const onBlur = () => {
+    console.log({
+      [field.name]: field.value
+    })
     dispath(setData({
       [field.name]: field.value
     }))
-  }, [field.value])
+    field.onBlur()
+  }
 
   const hasError = !!fieldState.error
 
@@ -95,6 +99,7 @@ export default function Input(props: InputProps) {
 
         {["date", "phone", "snils"].includes(props.type) && (
           <ReactInput
+          onBlur={onBlur}
           name={field.name}
           placeholder={props.placeHolder}
           disabled={props.disabled}
@@ -107,6 +112,7 @@ export default function Input(props: InputProps) {
 
         {["number", "text"].includes(props.type) && (
           <input 
+          onBlur={onBlur}
           placeholder={props.placeHolder}
           disabled={props.disabled}
           type={type}
