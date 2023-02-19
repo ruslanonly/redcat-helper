@@ -1,110 +1,73 @@
-import os
+
+
 import json
-import re
-from datetime import datetime
+import sqlite3
 
-
+DB_NAME = 'my_db.sqlite'
+USERS_TABLE_NAME = 'users'
 class FormData:
+
     def __init__(self):
-        self.data_path = "data/"
+        #self.data_path = "data/"
+        self.create_tables()
 
-    def _validate_fio(self, fio):
-        if fio==None:
-            return(True)
-        return all(re.match("^[а-яА-ЯёЁ]+$", name) for name in fio.values())
+    
+    def create_tables(self):
+        with sqlite3.connect(DB_NAME) as conn:
+            c = conn.cursor()
+            c.execute(f'CREATE TABLE IF NOT EXISTS {USERS_TABLE_NAME} (id INTEGER PRIMARY KEY, data TEXT)')
 
-    def _validate_date(self, date_str):
-        if date_str==None:
-            return(True)
-        try:
-            date = datetime.strptime(date_str, "%d-%m-%Y")
-            return date < datetime.now()
-        except ValueError:
-            return False
+    def save_data(self,user_id, data):
+        json_str = json.dumps(data)
+        with sqlite3.connect(DB_NAME) as conn:
+            c = conn.cursor()
+            c.execute(f"SELECT id FROM {USERS_TABLE_NAME} WHERE id=?", (user_id,))
+            res = c.fetchone()
+            if res is not None:
+                # user already exists, update data
+                c.execute(f"UPDATE {USERS_TABLE_NAME} SET data=? WHERE id=?", (json_str, user_id))
+            else:
+                # user doesn't exist, insert new row
+                c.execute(f"INSERT INTO {USERS_TABLE_NAME} (id, data) VALUES (?, ?)", (user_id, json_str))
+            conn.commit()
 
-    def _validate_gender(self, gender):
-        return gender in ["male", "female", None]
+    def get_data(self,user_id, filed):
+        with sqlite3.connect(DB_NAME) as conn:
+            c = conn.cursor()
+            c.execute(f"SELECT data FROM {USERS_TABLE_NAME} WHERE id=?", (user_id,))
+            res = c.fetchone()
+            if res is not None:
+                return json.loads(res[0])
+            else:
+                return None
 
-    def _validate_data(self, data):
-        invalid_fields = {}
-        if not self._validate_fio(data.get("fio")):
-            invalid_fields["fio"] = data.get("fio")
-        if not self._validate_date(data.get("birthdate")):
-            invalid_fields["birthdate"] = data.get("birthdate")
-        if not self._validate_date(data.get("passport_issue_date")):
-            invalid_fields["passport_issue_date"] = data.get("passport_issue_date")
-        if not self._validate_gender(data.get("gender")):
-            invalid_fields["gender"] = data.get("gender")
-        return invalid_fields
-
-    def save_data(self, user_id, data):
-        invalid_fields = self._validate_data(data)
-        if invalid_fields:
-            return invalid_fields
-
-        filename = f"{self.data_path}{user_id}.json"
-        with open(filename, "w") as f:
-            json.dump(data, f)
-        return None
-
-    def get_data(self, user_id, fields=None):
-        print(user_id, fields)
-        filename = f"{self.data_path}{user_id}.json"
-        if not os.path.isfile(filename):
-            return None
-
-        with open(filename, "r") as f:
-            data = json.load(f)
-
-        if fields is None:
-            return data
-
-        return {field: data.get(field) for field in fields}
-
-
-
-
-
-form_data = FormData()
+#form_data = FormData()
+#create_tables()
 
 '''
 
-# Сохраняем данные для пользователя с ID 12345
-user_data = {
-    "fio": {
-        "last_name": "Иванов",
-        "first_name": "Иван",
-        "patronymic": "Иванович"
-    },
-    "birthdate": "01-01-1990",
-    "gender": "male",
-    "address": "г. Москва, ул. Пушкина, д. 10, кв. 5",
-    "passport_series": "1234",
-    "passport_number": "567890",
-    "passport_issue_date": "01-01-2010",
-    "place_of_birth": "г. Москва",
-    "snils": "123-456-789 01"
-}
-invalid_fields = form_data.save_data(12345, user_data)
-if invalid_fields:
-    print(f"Не удалось сохранить данные для пользователя 12345. Некорректные поля: {invalid_fields}")
-else:
-    print(f"Данные для пользователя 12345 успешно сохранены.")
+form_data.save_data(1, {"name": "Alice", "age": 25})
+form_data.save_data(2, {"name": "Bob", "age": 30, "hobbies": ["reading", "painting"]})
+print(form_data.get_data(1))  # {'name': 'Alice', 'age': 25}
+print(form_data.get_data(2))  # {'name': 'Bob', 'age': 30, 'hobbies': ['reading', 'painting']}
+print(form_data.get_data(3))  # None
 
-# Получаем данные для пользователя с ID 12345
-data = form_data.get_data(12345)
-if data is None:
-    print("Данные для пользователя 12345 не найдены.")
-else:
-    print(f"Данные для пользователя 12345: {data}")
+#save_data(5,'{"Максим":"11"}')
+#save_data(5,{"фио":"макс"})
 
-# Получаем только поле "fio" для пользователя с ID 12345
-fio_data = form_data.get_data(12345, ["fio"])
-if fio_data is None:
-    print("Данные для пользователя 12345 не найдены.")
-else:
-    print(f"Данные для поля 'fio' для пользователя 12345: {fio_data}")
+print(form_data.get_data(1))
 
 '''
+
+
+
+
+
+
+
+
+
+
+
 
 
