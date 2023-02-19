@@ -13,7 +13,9 @@ const Item = (props: ItemProps) => {
   return (
     <div onClick={props.onClick} className={styles.item} data-active={props.active}>
       <h3>{props.title}</h3>
-      <h3>{props.percent}%</h3>
+      <h3 style={{
+        color: props.percent == 100 ? "var(--color-violet-main)" : "black"
+      }}>{props.percent}%</h3>
     </div>
   )
 }
@@ -38,7 +40,7 @@ export const mockProfile: Mock = {
   items: [
     {
       title: 'Основные данные',
-      percent: 30,
+      percent: 0,
     },
     {
       title: 'Личные документы' ,
@@ -68,27 +70,27 @@ export const mockNewOrder: Mock = {
   items: [
     {
       title: "Общее",
-      percent: 30,
+      percent: 0,
     },
     {
       title: 'Команда' ,
-      percent: 0,
+      percent: 100,
     },
     {
       title: 'О проекте' ,
-      percent: 0,
+      percent: 100,
     },
     {
       title: 'Медиа' ,
-      percent: 0,
+      percent: 100,
     },
     {
       title: 'Календарный план' ,
-      percent: 0,
+      percent: 100,
     },
     {
       title: 'Результаты' ,
-      percent: 0,
+      percent: 100,
     },
     {
       title: 'Расходы' ,
@@ -100,7 +102,7 @@ export const mockNewOrder: Mock = {
     },
     {
       title: 'Доп. файлы' ,
-      percent: 0,
+      percent: 100,
     },
   ]
 }

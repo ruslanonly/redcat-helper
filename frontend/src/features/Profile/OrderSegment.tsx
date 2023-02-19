@@ -4,8 +4,8 @@ import TileBlock from 'src/components/TileBlock/TileBlock'
 import styles from "./OrderSegment.module.scss"
 
 type OrderSegmentProps = {
-  title: string,
-  subtitle: string
+  title?: string,
+  subtitle?: string
 }
 
 export default function OrderSegment(props: React.PropsWithChildren<OrderSegmentProps>) {

@@ -1,0 +1,32 @@
+.trigger {
+  & {
+    cursor: pointer;
+  }
+}
+
+.body {
+  display: grid;
+  grid-template-columns: min-content 1fr;
+  gap: 1rem;
+  padding: 1.5rem;
+  .left {
+    display: grid;
+    gap: 1rem;
+    justify-items: center;
+  }
+  a {
+    &:hover {
+      color: var(--color-violet-main);
+    }
+  }
+}
+
+.micro {
+  border: solid .1rem var(--color-violet-main);
+  color: var(--color-violet-main);
+  width: min-content;
+  height: min-content;
+  border-radius: 1rem;
+  padding: .7rem;
+}
+

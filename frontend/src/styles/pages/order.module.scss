@@ -1,0 +1,9 @@
+.wrapper {
+  padding: 1rem;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}

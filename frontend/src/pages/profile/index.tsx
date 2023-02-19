@@ -20,6 +20,7 @@ import { useRouter } from 'next/router'
 import { useSetDataMutation } from 'src/app/redux/services/dataApi'
 import { useDispatch } from 'react-redux'
 import { setData } from 'src/app/redux/slices/dataSlice'
+import { setData as setDataHelper } from 'src/app/redux/slices/helperSlice'
 import { useAppDispatch, useAppSelector } from 'src/app/redux/store'
 import { AnimatePresence, motion } from 'framer-motion'
 import { fading } from 'utils/animation'
@@ -31,7 +32,7 @@ export default function UIPage() {
     mode: "all",
   })
 
-  const data = useAppSelector(state => state.data)
+  const data = useAppSelector(state => state.data.data)
 
   React.useEffect(() => {
     Object.entries(data).forEach((v) => {
@@ -64,12 +65,15 @@ export default function UIPage() {
                 <span>nezbkir@gmail.com</span>
               </Flex>
               <Flex className={styles.idData} gap=".3rem" alignItems="center">
-                <Button onChange={() => console.log('clicked')}>
+                {/* <Button onClick={() => router.push("/profile/order/new")}>
+                  Заявка на грант
+                </Button> */}
+                <Button disabled onClick={() => dispatch(setDataHelper({text: "Чтобы подать заявку на грант, необходимо заполнить профиль на 100%. Осталось заполнить разделы: Основные данные, Личные документы, Образование"}))}>
                   Заявка на грант
                 </Button>
               </Flex>
             </div>
-            <TileBlock style={{width: "100%", maxWidth: "250px"}}>
+            <TileBlock style={{width: "100%", maxWidth: "30em"}}>
               <div className={styles.choosing}>
                 <div className={styles.chItem}>
                   <span>Мои проекты</span>
@@ -77,7 +81,7 @@ export default function UIPage() {
                     <GraphLogo/>
                   </div>
                 </div>
-                <div className={styles.chItem} onClick={() => router.push("/profile/order/new")}>
+                <div className={styles.chItem} onClick={() => router.push("/profile/order")}>
                   <span>Заявки</span>
                   <div className={styles.icon}>
                     <PaperUploadLogo/>
@@ -264,7 +268,7 @@ const PrivateDataPage = (props: {control: any}) => {
 
       <FormSegment title='Документы'>
         <Input
-        name='snils'
+        name='inn'
         control={props.control}
         description="Введите номер ИНН"
         label='ИНН'

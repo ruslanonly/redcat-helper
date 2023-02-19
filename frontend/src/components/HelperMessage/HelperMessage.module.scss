@@ -1,5 +1,6 @@
 .block {
   & {
+    transform-origin: top left;
     padding: 1rem;
     display: grid;
     gap: 1rem;

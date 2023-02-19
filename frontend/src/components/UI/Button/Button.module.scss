@@ -4,6 +4,13 @@
     border-radius: .5rem;
     font-size: .9rem;
   }
+  &[data-variant="disabled"] {
+    & {
+      cursor: pointer;
+      background: var(--color-grey-200) !important;
+      opacity: 0.7;
+    }
+  }
   &[data-variant="default"] {
     background: var(--color-lime);
   }

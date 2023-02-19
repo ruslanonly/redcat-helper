@@ -3,13 +3,14 @@ import React from 'react'
 import styles from "./Button.module.scss"
 
 type ButtonProps = {
-  onChange: () => void,
+  onClick?: () => void
   variant?: "outline" | "default"
+  disabled?: boolean
 }
 
 export default function Button(props: React.PropsWithChildren<ButtonProps>) {
   return (
-    <button className={styles.button} onChange={props.onChange} data-variant={props.variant || "default"}>
+    <button disabled={props.disabled} onClick={props.onClick} className={styles.button} data-variant={props.disabled ? "disabled" : props.variant || "default"}>
       {props.children}
     </button>
   )

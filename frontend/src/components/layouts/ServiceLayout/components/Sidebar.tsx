@@ -10,6 +10,9 @@ import { AiOutlineCheckCircle } from "react-icons/ai"
 import { RiCompassLine } from "react-icons/ri"
 import { IconType } from 'react-icons/lib/esm/iconBase'
 import Link from 'next/link'
+import HelperLogo from 'src/components/UI/HelperLogo/HelperLogo'
+import { Flex, Popover, PopoverTrigger } from '@chakra-ui/react'
+import HelperPopover from 'src/features/HelperPopover/HelperPopover'
 
 export const NavItemLink = (props: {title: string, icon: React.ReactNode, link?: string}) => {
   return (
@@ -39,7 +42,7 @@ export default function Sidebar() {
               icon={<BsFillPersonFill/>}
               title="Профиль"/>
               <NavItemLink
-              link="/profile/order/new"
+              link="/profile/order"
               icon={<IoDocumentTextOutline/>}
               title="Гранты"/>
               <NavItemLink
@@ -57,9 +60,7 @@ export default function Sidebar() {
             </nav>
           </div>
         </div>
-        <NavItemLink
-        icon={<IoScan/>}
-        title={"Цифровой помощник"}/>
+        <HelperPopover/>
       </div>
     </div>
   )
