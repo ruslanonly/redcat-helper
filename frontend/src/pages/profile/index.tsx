@@ -32,7 +32,7 @@ export default function UIPage() {
     mode: "all",
   })
 
-  const data = useAppSelector(state => state.data.data)
+  const data = useAppSelector(state => state.user.data)
 
   React.useEffect(() => {
     Object.entries(data).forEach((v) => {
@@ -65,12 +65,12 @@ export default function UIPage() {
                 <span>nezbkir@gmail.com</span>
               </Flex>
               <Flex className={styles.idData} gap=".3rem" alignItems="center">
-                {/* <Button onClick={() => router.push("/profile/order/new")}>
-                  Заявка на грант
-                </Button> */}
-                <Button disabled onClick={() => dispatch(setDataHelper({text: "Чтобы подать заявку на грант, необходимо заполнить профиль на 100%. Осталось заполнить разделы: Основные данные, Личные документы, Образование"}))}>
+                <Button onClick={() => router.push("/profile/order/new")}>
                   Заявка на грант
                 </Button>
+                {/* <Button disabled onClick={() => dispatch(setDataHelper({text: "Чтобы подать заявку на грант, необходимо заполнить профиль на 100%. Осталось заполнить разделы: Основные данные, Личные документы, Образование"}))}>
+                  Заявка на грант
+                </Button> */}
               </Flex>
             </div>
             <TileBlock style={{width: "100%", maxWidth: "30em"}}>

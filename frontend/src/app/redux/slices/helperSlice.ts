@@ -12,6 +12,7 @@ let helperSlice = createSlice({
   initialState: initialState,
   reducers: {
     setData: (state, action: PayloadAction<State>) => {
+      console.log()
       state.text = action.payload.text
     }
   },

@@ -10,7 +10,7 @@ type ButtonProps = {
 
 export default function Button(props: React.PropsWithChildren<ButtonProps>) {
   return (
-    <button disabled={props.disabled} onClick={props.onClick} className={styles.button} data-variant={props.disabled ? "disabled" : props.variant || "default"}>
+    <button onClick={props.onClick} className={styles.button} data-variant={props.disabled ? "disabled" : props.variant || "default"}>
       {props.children}
     </button>
   )

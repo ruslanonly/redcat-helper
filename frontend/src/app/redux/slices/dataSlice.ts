@@ -13,7 +13,7 @@ const initialState: State = {
   data: {}
 }
 let dataSlice = createSlice({
-  name: "auth",
+  name: "user",
   initialState: initialState,
   reducers: {
     setData: (state, action: PayloadAction<UserData>) => {

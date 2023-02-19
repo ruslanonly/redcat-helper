@@ -6,7 +6,7 @@ import helperSlice from "./slices/helperSlice";
 
 const store = configureStore({
   reducer: {
-    data: dataSlice.reducer,
+    user: dataSlice.reducer,
     helper: helperSlice.reducer
   }
 })

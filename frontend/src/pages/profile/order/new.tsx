@@ -32,13 +32,14 @@ export default function OrderPage() {
     mode: "all"
   })
   const dispatch = useAppDispatch()
-  const data = useAppSelector(state => state.data.data)
-
+  const data = useAppSelector(state => state.user.data)
+  console.log(data)
   React.useEffect(() => {
     Object.entries(data).forEach((v) => {
+      console.log(data)
       setValue(v[0], v[1])
     })
-  }, [data])
+  }, [])
 
   React.useEffect(() => {
     if (activePage == "Софинансирование") {
