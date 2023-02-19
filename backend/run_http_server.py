@@ -1,7 +1,9 @@
 from flask import Flask, jsonify, request
 from save_userdate import FormData
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)  # добавляем CORS к приложению
 form_data = FormData()
 
 @app.route('/api/save_data', methods=['POST'])
